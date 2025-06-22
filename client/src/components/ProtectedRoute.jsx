@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { GetCurrentUser } from "../apicalls/users";
+import { GetCurrentUser } from "../apiCalls/users";
 import { message } from "antd";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
