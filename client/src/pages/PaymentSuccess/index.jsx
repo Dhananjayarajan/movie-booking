@@ -178,56 +178,36 @@ const PaymentSuccess = () => {
   };
 
   useEffect(() => {
-    console.log("✅ PaymentSuccess page loaded");
-
     const confirmBooking = async () => {
       try {
-        console.log("🕵️ Extracting session_id from URL...");
         const sessionId = new URLSearchParams(window.location.search).get(
           "session_id"
         );
 
         if (!sessionId) {
-          console.error("❌ No session_id found in URL");
+          console.error("❌ No session_id found");
           return;
         }
 
-        console.log("✅ session_id found:", sessionId);
-        dispatch(ShowLoading());
-
-        console.log("🔗 Calling backend to retrieve session info...");
         const sessionRes = await axiosInstance.get(
           `/api/stripe/session/${sessionId}`
         );
-
-        console.log("📦 Stripe session response full:", sessionRes);
+        console.log("✅ sessionRes:", sessionRes);
 
         const transactionId = sessionRes?.data?.payment_intent;
-
-        if (!transactionId) {
-          console.error("❌ payment_intent missing in sessionRes.data");
-          console.log("🪵 sessionRes.data keys:", Object.keys(sessionRes.data));
-        }
-
-        dispatch(HideLoading());
-
         if (transactionId) {
-          console.log("✅ transactionId:", transactionId);
           await book(transactionId);
         } else {
-          message.error("Payment succeeded, but could not confirm session.");
-          navigate("/");
+          console.error("❌ No transactionId in sessionRes");
         }
       } catch (err) {
-        dispatch(HideLoading());
-        console.error("🚨 Error during payment confirmation:", err);
-        console.log("🪵 err.response:", err?.response?.data);
-        message.error("Error confirming payment.");
-        navigate("/");
+        console.error("🔥 Booking error in confirmBooking:", err);
       }
     };
 
-    confirmBooking();
+    confirmBooking().catch((err) =>
+      console.error("🔥 Unhandled async error in confirmBooking:", err)
+    );
   }, []);
 
   return (
