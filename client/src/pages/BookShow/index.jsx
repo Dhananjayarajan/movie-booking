@@ -49,7 +49,14 @@ const BookShow = () => {
         }
       );
 
+      console.log("🎯 Stripe session response:", res.data);
+
       const session = res.data;
+
+      if (!session.id) {
+        message.error("❌ No session ID received from backend");
+        return;
+      }
 
       await stripe.redirectToCheckout({
         sessionId: session.id,
