@@ -83,6 +83,15 @@ function App() {
               </ProtectedRoute>
             }
           />
+
+          <Route
+            path="/api/stripe/success"
+            element={
+              <ProtectedRoute>
+                <Profile />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </BrowserRouter>
     </div>

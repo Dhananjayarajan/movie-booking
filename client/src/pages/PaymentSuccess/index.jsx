@@ -178,6 +178,8 @@ const PaymentSuccess = () => {
   };
 
   useEffect(() => {
+    console.log("✅ PaymentSuccess page loaded");
+
     const confirmBooking = async () => {
       try {
         console.log("🕵️ Extracting session_id from URL...");

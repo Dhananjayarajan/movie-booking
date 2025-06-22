@@ -95,7 +95,7 @@ router.post("/create-checkout-session", authMiddleware, async (req, res) => {
       mode: "payment",
       customer_email: user.email,
       success_url: `${process.env.REDIRECT_DOMAIN}/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${process.env.REDIRECT_DOMAIN}/cancel`,
+      cancel_url: `${process.env.REDIRECT_DOMAIN}/`,
       metadata: {
         userId: user._id.toString(),
         showId: showId.toString(),
@@ -125,6 +125,7 @@ router.get("/stripe/session/:id", async (req, res) => {
     console.log("🧾 id:", session.id);
     console.log("💳 payment_intent:", session.payment_intent);
     console.log("📦 metadata:", session.metadata);
+    console.log("Full session object:", JSON.stringify(session, null, 2));
 
     res.send(session); // session includes payment_intent
   } catch (err) {
