@@ -60,6 +60,8 @@ const Show = require("../models/showModel");
 // });
 
 router.post("/create-checkout-session", authMiddleware, async (req, res) => {
+  console.log("📥 POST /api/create-checkout-session called");
+  console.log("➡️ Request body:", req.body);
   try {
     const user = await User.findById(req.userId);
     console.log("🔐 Authenticated user ID:", req.userId);

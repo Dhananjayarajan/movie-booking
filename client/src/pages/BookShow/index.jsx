@@ -8,6 +8,7 @@ import moment from "moment";
 import Button from "../../components/Button";
 import { loadStripe } from "@stripe/stripe-js";
 import axios from "axios";
+import { axiosInstance } from "../../apiCalls/index";
 
 const BookShow = () => {
   const { user } = useSelector((state) => state.users);
@@ -35,7 +36,7 @@ const BookShow = () => {
       localStorage.setItem("showId", show._id);
       localStorage.setItem("selectedSeats", JSON.stringify(selectedSeats));
 
-      const res = await axios.post(
+      const res = await axiosInstance.post(
         "/api/create-checkout-session",
         {
           amount, // total price to charge
