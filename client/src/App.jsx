@@ -92,6 +92,14 @@ function App() {
               </ProtectedRoute>
             }
           />
+          <Route
+            path="/api/success"
+            element={
+              <ProtectedRoute>
+                <Profile />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </BrowserRouter>
     </div>
