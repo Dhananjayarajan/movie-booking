@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
+const path = require("path");
 
 const app = express();
 
@@ -30,5 +31,12 @@ app.use("/api", require("./routes/billingRoute")); // /api/create-checkout-sessi
 app.use("/api", require("./webhook/stripeWebhook")); // /api/webhook
 app.use("/api/bookings", require("./routes/bookingRoute"));
 
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "client", "dist")));
+
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "client", "dist", "index.html"));
+  });
+}
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

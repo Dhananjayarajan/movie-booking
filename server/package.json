@@ -1,15 +1,11 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "main": "index.js",
-    "scripts": {
+  "main": "server.js",
+  "scripts": {
     "start": "node server.js",
     "build": "cd client && npm install && npm run build"
-},
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
+  },
   "dependencies": {
     "bcryptjs": "^3.0.2",
     "body-parser": "^2.2.0",
@@ -18,6 +14,7 @@
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.15.0",
+    "path": "^0.12.7",
     "stripe": "^18.2.1"
   }
 }
