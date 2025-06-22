@@ -109,3 +109,5 @@ router.get("/get-current-user", authMiddleware, async (req, res) => {
     });
   }
 });
+
+module.exports = router;
