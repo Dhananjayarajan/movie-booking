@@ -6,59 +6,6 @@ const User = mongoose.model("users");
 const Booking = require("../models/bookingModel");
 const Show = require("../models/showModel");
 
-// router.post("/create-checkout-session", authMiddleware, async (req, res) => {
-//   try {
-//     const user = await User.findById(req.userId);
-//     if (!user)
-//       return res
-//         .status(404)
-//         .send({ success: false, message: "User not found" });
-
-//     const { amount, showId, seats } = req.body;
-
-//     if (!amount || !showId || !seats?.length) {
-//       return res.status(400).send({
-//         success: false,
-//         message: "Missing amount, showId, or seats",
-//       });
-//     }
-
-//     const session = await stripe.checkout.sessions.create({
-//       payment_method_types: ["card"],
-//       line_items: [
-//         {
-//           price_data: {
-//             currency: "usd",
-//             product_data: {
-//               name: `Movie Tickets for Show`,
-//             },
-//             unit_amount: amount * 100, // Stripe uses cents
-//           },
-//           quantity: 1,
-//         },
-//       ],
-//       mode: "payment",
-//       customer_email: user.email,
-//       success_url: `${process.env.REDIRECT_DOMAIN}/success?session_id={CHECKOUT_SESSION_ID}`, // ✅ Fix here
-//       cancel_url: `${process.env.REDIRECT_DOMAIN}/cancel`,
-//       metadata: {
-//         userId: user._id.toString(),
-//         showId: showId.toString(),
-//         seats: seats.join(","), // e.g., "5,6,7"
-//       },
-//     });
-
-//     res.send({ id: session.id });
-//   } catch (error) {
-//     console.error("Stripe session creation error:", error);
-//     res.status(500).send({
-//       success: false,
-//       message: "Session creation failed",
-//       error: error.message,
-//     });
-//   }
-// });
-
 router.post("/create-checkout-session", authMiddleware, async (req, res) => {
   console.log("📥 POST /api/create-checkout-session called");
   console.log("➡️ Request body:", req.body);
