@@ -1,8 +1,7 @@
 import axios from "axios";
 
-// Create an axios instance
 export const axiosInstance = axios.create({
-  baseURL: "http://localhost:3000", // Update to match backend port
+  baseURL: import.meta.env.VITE_API_URL || "http://localhost:3000",
 });
 
 // ✅ Add interceptor to attach token to every request
