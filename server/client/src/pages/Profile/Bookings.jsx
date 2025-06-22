@@ -17,8 +17,6 @@ function Bookings() {
       dispatch(ShowLoading());
       const response = await GetBookingsOfUser();
       if (response.success) {
-        console.log("📦 Bookings fetched:", response.data); // 👈 log here
-
         setBookings(response.data);
       } else {
         message.error(response.message);

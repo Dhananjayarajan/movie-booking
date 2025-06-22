@@ -9,8 +9,8 @@ const app = express();
 app.use(
   cors({
     origin: [
-      "http://localhost:5173", // local dev
-      "https://movie-booking-frontend-4zdw.onrender.com", // deployed frontend
+      "http://localhost:5173",
+      "https://movie-booking-frontend-4zdw.onrender.com",
     ],
     credentials: true,
   })
@@ -27,8 +27,8 @@ require("./config/dbConfig");
 app.use("/api/users", require("./routes/usersRoute"));
 app.use("/api/movies", require("./routes/moviesRoute"));
 app.use("/api/theatres", require("./routes/theatreRoute"));
-app.use("/api", require("./routes/billingRoute")); // /api/create-checkout-session
-app.use("/api", require("./webhook/stripeWebhook")); // /api/webhook
+app.use("/api", require("./routes/billingRoute"));
+app.use("/api", require("./webhook/stripeWebhook"));
 app.use("/api/bookings", require("./routes/bookingRoute"));
 
 if (process.env.NODE_ENV === "production") {

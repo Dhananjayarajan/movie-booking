@@ -34,15 +34,11 @@ function ProtectedRoute({ children }) {
   };
 
   useEffect(() => {
-    console.log("ProtectedRoute mounted");
     const token = localStorage.getItem("token");
-    console.log("Token from localStorage:", token);
 
     if (token) {
-      console.log("Calling getCurrentUser()...");
       getCurrentUser();
     } else {
-      console.log("No token found → redirecting to login");
       navigate("/login");
     }
   }, []);

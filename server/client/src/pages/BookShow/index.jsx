@@ -49,13 +49,11 @@ const BookShow = () => {
           },
         }
       );
-      console.log("📦 Full Axios response:", res);
-      console.log("🎯 Stripe session response:", res.data);
 
       const session = res.data;
 
       if (!session.id) {
-        message.error("❌ No session ID received from backend");
+        message.error(" No session ID received from backend");
         return;
       }
 
@@ -63,7 +61,6 @@ const BookShow = () => {
         sessionId: session.id,
       });
     } catch (error) {
-      console.log("Stripe error:", error);
       message.error("Something went wrong!");
     }
   };
@@ -131,10 +128,6 @@ const BookShow = () => {
         ))}
       </div>
     );
-  };
-
-  const onToken = async (token) => {
-    console.log(token);
   };
 
   useEffect(() => {

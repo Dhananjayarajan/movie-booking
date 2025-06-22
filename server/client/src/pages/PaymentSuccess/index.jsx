@@ -12,13 +12,8 @@ const PaymentSuccess = () => {
   const { user } = useSelector((state) => state.users);
 
   const book = async (transactionId) => {
-    console.log("📦 Booking payload preparing...");
     const showId = localStorage.getItem("showId");
     const selectedSeats = JSON.parse(localStorage.getItem("selectedSeats"));
-    console.log("✅ showId:", showId);
-    console.log("✅ selectedSeats:", selectedSeats);
-    console.log("✅ transactionId:", transactionId);
-    console.log("✅ userId:", user?._id);
 
     try {
       dispatch(ShowLoading());
@@ -33,7 +28,6 @@ const PaymentSuccess = () => {
       dispatch(HideLoading());
 
       if (response.success) {
-        console.log("🎉 Booking successful:", response.data);
         message.success("🎟️ Tickets booked successfully!");
 
         // Cleanup
@@ -41,11 +35,10 @@ const PaymentSuccess = () => {
         localStorage.removeItem("selectedSeats");
 
         setTimeout(() => {
-          console.log("🔁 Redirecting to /profile...");
           navigate("/profile");
         }, 3000);
       } else {
-        console.error("❌ Booking failed:", response.message);
+        console.error(" Booking failed:", response.message);
         message.error(response.message || "Booking failed");
         navigate("/");
       }
@@ -65,36 +58,33 @@ const PaymentSuccess = () => {
         );
 
         if (!sessionId) {
-          console.error("❌ No session_id found");
+          console.error(" No session_id found");
           return;
         }
 
         const sessionRes = await axiosInstance.get(
           `/api/stripe/session/${sessionId}`
         );
-        console.log("✅ sessionRes:", sessionRes);
 
         const transactionId = sessionRes?.data?.payment_intent;
         if (transactionId) {
           await book(transactionId);
         } else {
-          console.error("❌ No transactionId in sessionRes");
+          console.error(" No transactionId in sessionRes");
         }
       } catch (err) {
-        console.error("🔥 Booking error in confirmBooking:", err);
+        console.error(" Booking error in confirmBooking:", err);
       }
     };
 
     confirmBooking().catch((err) =>
-      console.error("🔥 Unhandled async error in confirmBooking:", err)
+      console.error(" Unhandled async error in confirmBooking:", err)
     );
   }, []);
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen text-center">
-      <h1 className="text-3xl font-bold text-green-600">
-        ✅ Payment Successful!
-      </h1>
+      <h1 className="text-3xl font-bold text-green-600">Payment Successful!</h1>
       <p className="mt-2 text-gray-600">Processing your booking...</p>
     </div>
   );

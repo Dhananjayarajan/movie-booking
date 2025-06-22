@@ -17,9 +17,8 @@ router.post(
         req.headers["stripe-signature"],
         process.env.STRIPE_WEBHOOK_SECRET
       );
-      console.log("✅ Stripe webhook verified");
     } catch (err) {
-      console.error("❌ Webhook signature verification failed:", err.message);
+      console.error(" Webhook signature verification failed:", err.message);
       return res.status(400).send(`Webhook Error: ${err.message}`);
     }
 
@@ -28,7 +27,7 @@ router.post(
       const userId = session.metadata.userId;
 
       if (!userId) {
-        console.error("❌ Missing userId in session metadata");
+        console.error(" Missing userId in session metadata");
         return res.status(400).send("Missing userId");
       }
 
@@ -37,10 +36,9 @@ router.post(
         if (user) {
           user.credits = (user.credits || 0) + 5;
           await user.save();
-          console.log(`✅ Credits updated for ${user.email}`);
         }
       } catch (error) {
-        console.error("❌ Failed to update user credits:", error);
+        console.error(" Failed to update user credits:", error);
       }
     }
 
