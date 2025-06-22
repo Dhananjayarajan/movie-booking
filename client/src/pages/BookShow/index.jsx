@@ -48,7 +48,7 @@ const BookShow = () => {
           },
         }
       );
-
+      console.log("📦 Full Axios response:", res);
       console.log("🎯 Stripe session response:", res.data);
 
       const session = res.data;
